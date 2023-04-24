@@ -14,7 +14,17 @@ class App extends Component {
     ]
   };
 
-  handleIncriment = counter => {
+  constructor(props) {
+    super(props);
+    console.log('app-constructor',this.props);
+  }
+
+  componentDidMount() {
+    // Ajax Call
+    console.log('App - Mounted')
+  }
+
+  handleIncrement = counter => {
     const newCounters = [...this.state.counters];
     const index = newCounters.indexOf(counter);
     newCounters[index] = {...counter};
@@ -22,10 +32,9 @@ class App extends Component {
     this.setState({counters: newCounters})
   }
 
-  handleDelete = (counterId) => {
-    const {counters} = this.state
-    const newCounters = counters.filter(c => c.id !== counterId);
-    this.setState({counters: newCounters});
+  handleDelete = (counterId) => {// use of () is not required
+    const counters = this.state.counters.filter(c => c.id !== counterId);
+    this.setState({counters});
   };
 
   handleReset = () => {
@@ -46,7 +55,7 @@ class App extends Component {
           <Counters
             counters={this.state.counters}
             onReset={this.handleReset}
-            onIncrement={this.handleIncriment}
+            onIncrement={this.handleIncrement}
             onDelete={this.handleDelete}
           />
         </main>
